@@ -36,7 +36,7 @@ body.landing {
     padding: 2rem;
     text-align: center;
     opacity: 1;
-    -webkit-transform: scaleX(0.75) translateY(5rem);
+    /*-webkit-transform: scaleX(0.75) translateY(5rem);
     -moz-transform: scaleX(0.75) translateY(5rem);
     tranform: scaleX(0.75) translateY(5rem);
     -webkit-transition: all .5s ease-in-out;
@@ -44,7 +44,7 @@ body.landing {
     transition: all .5s ease-in-out;
     -webkit-transition-delay: 0.2s;
     -moz-transition-delay: 0.2s;
-    transition-delay: 0.2s;    
+    transition-delay: 0.2s; */
 }
 
 .point .point-title {

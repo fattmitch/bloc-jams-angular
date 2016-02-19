@@ -1,7 +1,7 @@
 (function() {
     function config($stateProvider, $locationProvider) {
         $locationProvider
-            .html5Mode9({
+            .html5Mode({
                 enabled: true,
                 requireBase: false
         });
