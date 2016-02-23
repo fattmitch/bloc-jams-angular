@@ -1,15 +1,37 @@
 (function() {
     function SongPlayer() {
+        
+        /**
+        * @desc defining SongPlayer object
+        * @type {Object}
+        */
+        
         var SongPlayer = {};
+        
+        /**
+        * @desc current song is defined
+        * @type {Boolean}
+        */
         
         var currentSong = null;
         
         /**
         * @desc Buzz ojbect audio file
-        * @type {Ojbect}
+        * @type {Ojbect} song
         */
         
         var currentBuzzObject = null;
+        
+        /**
+        * @function playSong
+        * @desc Sets currentBuzzObject to play and song.playing to true
+        * @param {Object} song
+        */
+        
+        var playSong = function(song) {
+            currentBuzzObject.play();
+            song.playing = true;
+        };
         
         /**
         * @function setSong
@@ -34,12 +56,11 @@
         SongPlayer.play = function(song) {
             if (currentSong !== song) {
                 setSong(song);            
-                currentBuzzObject.play();
-                song.playing = true;
+                playSong(song);
                 
             } else if (currentSong === song) {
                 if (currentBuzzObject.isPaused()) {
-                    currentBuzzObject.play();
+                    playSong(song)
                 }
             }
         };
