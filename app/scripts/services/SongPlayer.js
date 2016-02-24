@@ -75,6 +75,13 @@
         
         SongPlayer.currentSong = null;
         
+        /**
+        * @desc Current playback time (in seconds) of currently playing song
+        * @type {number}
+        */
+        
+        SongPlayer.currentTime = null;
+        
         /** 
         * @function play
         * @desc If no song is playing, play song, if a song is playing, pause that song, and play the new one.
@@ -141,6 +148,18 @@
                 var song = SongPlayer.currentAlbum.songs[currentSongIndex];
                 setSong(song);
                 playSong(song);
+            }
+        };
+        
+        /**
+        * @function setCurrentTime
+        * @desc Set current time (in seconds) of currently playing song
+        * @param {number} time
+        */
+        
+        SongPlayer.setCurrentTime = function(time) {
+            if (currentBuzzObject) {
+                currentBuzzObject.setTime(time);
             }
         };
         
