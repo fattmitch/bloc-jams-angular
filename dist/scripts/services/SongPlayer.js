@@ -1,19 +1,6 @@
 (function() {
     function SongPlayer(Fixtures) {
-        
-        /**
-        * @desc defining SongPlayer object
-        * @type {Object}
-        */
-        
         var SongPlayer = {};
-        
-        /**
-        * @desc Stores the current album information into currentAlbum
-        * @type {Object}
-        */
-        
-        var currentAlbum = Fixtures.getAlbum();
         
         /**
         * @desc Buzz ojbect audio file
@@ -23,17 +10,6 @@
         var currentBuzzObject = null;
         
         /**
-        * @function playSong
-        * @desc Sets currentBuzzObject to play and song.playing to true
-        * @param {Object} song
-        */
-        
-        var playSong = function(song) {
-            currentBuzzObject.play();
-            song.playing = true;
-        };
-        
-        /**
         * @function setSong
         * @desc Stop currently playing song and loads new audio file as currentBuzzObject
         * @param {Object} song
@@ -41,8 +17,7 @@
         
         var setSong = function(song) {
             if (currentBuzzObject) {
-                currentBuzzObject.stop();
-                SongPlayer.currentSong.playing = null;
+                stopSong(song);
             }
             
             currentBuzzObject = new buzz.sound(song.audioUrl, {
@@ -54,6 +29,28 @@
         };
         
         /**
+        * @function playSong
+        * @desc Sets currentBuzzObject to play and song.playing to true
+        * @param {Object} song
+        */
+        
+        var playSong = function(song) {
+            currentBuzzObject.play();
+            song.playing = true;
+        };
+                
+        /**
+        * @function stopSong
+        * @desc stops the current song
+        * @param {Object} song
+        */
+        
+        var stopSong = function(song) {
+            currentBuzzObject.stop();
+            SongPlayer.currentSong.playing = null;
+        };
+        
+        /**
         * @function getSongIndex
         * @desc Gets the index of the current song.
         * param {Ojbect} song
@@ -61,8 +58,15 @@
         */
         
         var getSongIndex = function(song){
-            return currentAlbum.songs.indexOf(song);
+            return SongPlayer.currentAlbum.songs.indexOf(song);
         };
+           
+        /**
+        * @desc Stores the current album information into currentAlbum
+        * @type {Object}
+        */
+        
+        SongPlayer.currentAlbum = Fixtures.getAlbum();
         
         /**
         * @desc current song is defined
@@ -113,10 +117,9 @@
             currentSongIndex--;
             
             if (currentSongIndex < 0) {
-                currentBuzzObject.stop();
-                SongPlayer.currentSong.playing = null;
+                stopSong(song);
             } else {
-                var song = currentAlbum.songs[currentSongIndex];
+                var song = SongPlayer.currentAlbum.songs[currentSongIndex];
                 setSong(song);
                 playSong(song);
             }
@@ -126,12 +129,20 @@
         * @function next
         * @desc skips to the next song
         * @returns {number}
-        
+        */
         
         SongPlayer.next = function() {
             var currentSongIndex = getSongIndex(SongPlayer.currentSong);
             currentSongIndex++;
-        }; */
+            
+            if (currentSongIndex > SongPlayer.currentAlbum.songs.length) {
+                stopSong(song);
+            } else {
+                var song = SongPlayer.currentAlbum.songs[currentSongIndex];
+                setSong(song);
+                playSong(song);
+            }
+        };
         
         return SongPlayer;
     }
